@@ -1,0 +1,33 @@
+/* alerts */
+.notification{
+    position: fixed;
+    top: 24px;
+    right: 24px;
+    z-index: 99;
+}
+.notification.opacity {
+    transition: all .3s linear;
+    opacity: 0;
+}
+
+/* checkbox */
+input[type=checkbox]{
+    display: none;
+}
+input[type=checkbox] + div::before{
+    font-family: Font Awesome\ 5 Free;
+    content: '\f0c8';
+    font-size: 18px;
+    display: inline-block;
+    cursor: pointer;
+    margin-right: 10px;
+}
+input[type=checkbox]:checked + div::before{
+    content: '\f14a';
+}
+
+input[type=checkbox] + div,
+.edit-item,
+.delete-item{
+    cursor: pointer;
+}

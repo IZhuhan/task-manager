@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>To Do List</title>
+
+    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+<body>
+<section class="tasks-wrap mt-5">
+    <div class="container position-relative">
+        <div class="card mb-3">
+            <div class="card-header">
+                Add ToDo
+            </div>
+            <div class="card-body">
+                <form name="addTodoItem">
+                    <div class="form-group">
+                        <label for="todoText">Text</label>
+                        <input type="text" class="form-control" id="todoText">
+                        <div class="invalid-feedback">
+                            Please enter some text
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add</button>
+                </form>
+            </div>
+        </div>
+        <div class="card mb-3">
+            <div class="card-header">
+                Task list
+            </div>
+            <div class="card-body">
+                <div class="empty-notification alert alert-info mb-0" role="alert">Empty list</div>
+                <ul class="list-group"></ul>
+            </div>
+        </div>
+        <button type="button" class="btn btn-primary clear-btn">Clear List</button>
+    </div>
+</section>
+
+<script src="js/id.js"></script>
+<script src="js/tasks.js"></script>
+<script src="js/localstorage.js"></script>
+<script src="js/notification.js"></script>
+<script src="js/observer.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
