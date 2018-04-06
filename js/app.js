@@ -15,6 +15,8 @@ const addTaskObserver = new EventObserver();
 const deleteTaskObserver = new EventObserver();
 const clearAllTasksObserver = new EventObserver();
 const editTaskObserver = new EventObserver();
+const searchTaskObserver = new EventObserver();
+const generateTasksObserver = new EventObserver();
 
 // Subscribe on add task event
 addTaskObserver.subscribe( localstorage.update );
@@ -28,30 +30,39 @@ deleteTaskObserver.subscribe( ui.checkState );
 editTaskObserver.subscribe( localstorage.update );
 editTaskObserver.subscribe( notification.show );
 
+searchTaskObserver.subscribe( ui.deleteAll );
+searchTaskObserver.subscribe( notification.show );
+searchTaskObserver.subscribe( ui.checkState );
+
+generateTasksObserver.subscribe( ui.deleteAll );
+generateTasksObserver.subscribe( ui.generateList );
+generateTasksObserver.subscribe( ui.checkState );
+
 clearAllTasksObserver.subscribe( localstorage.update );
 clearAllTasksObserver.subscribe( notification.show );
 clearAllTasksObserver.subscribe( ui.checkState );
 
 // Init elements
-const form = document.forms[ 'addTodoItem' ];
-const inputText = form.elements[ 'todoText' ];
+const formAddTask = document.forms[ 'addTodoItem' ];
+const inputText = formAddTask.elements[ 'todoText' ];
+
+const inputSearch = document.getElementById( 'search' );
+const resetBtn = document.querySelector( '.reset' );
+const sortBtn = document.querySelector( '.sort' );
+
 const ul = document.querySelector( '.list-group' );
 const clearBtn = document.querySelector( '.clear-btn' );
 
 window.addEventListener( 'load', function () {
     let ls = localstorage.getTasks() || [];
 
-    if ( ls.length ) {
-        ls.forEach( task => {
-            tasks.addTask( task )
-                .then( oneTask => ui.addTask( oneTask ) );
-        });
+    if (ls.length) {
+        tasks.setTasks( ls )
+            .then( data => generateTasksObserver.fire( data ) );
     }
-
-    ui.checkState();
 });
 
-form.addEventListener( 'submit', function ( e ) {
+formAddTask.addEventListener( 'submit', function ( e ) {
         e.preventDefault();
 
         if ( !inputText.value ) {
@@ -67,13 +78,34 @@ form.addEventListener( 'submit', function ( e ) {
                     text: 'Task added success!'
                 }));
 
-            form.reset();
+            formAddTask.reset();
         }
     });
 
 inputText.addEventListener( 'keyup', function () {
     if ( inputText.value ) {
         inputText.classList.remove( 'is-invalid' );
+    }
+});
+
+inputSearch.addEventListener( 'keyup', function () {
+    const searchText = inputSearch.value;
+
+    if ( searchText !== '' ) {
+        tasks.search( searchText )
+            .then( data => {
+                if ( !data.length ) {
+                    searchTaskObserver.fire({
+                        class: 'alert-danger',
+                        timeout: 2000,
+                        text: `There's no tasks contain '${searchText}'! Please, try again.`
+                    })
+                } else {
+                    generateTasksObserver.fire( data );
+                }
+            });
+    } else {
+        generateTasksObserver.fire( tasks.getTasks() );
     }
 });
 
@@ -128,4 +160,8 @@ clearBtn.addEventListener( 'click', function () {
             timeout: 1000,
             text: 'List has been cleared success!'
         }));
+});
+
+resetBtn.addEventListener( 'click', function () {
+    generateTasksObserver.fire( tasks.getTasks() );
 });

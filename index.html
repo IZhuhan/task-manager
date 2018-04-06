@@ -22,11 +22,29 @@
                         <label for="todoText">Text</label>
                         <input type="text" class="form-control" id="todoText">
                         <div class="invalid-feedback">
-                            Please enter some text
+                            Please, enter some text
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary">Add</button>
                 </form>
+            </div>
+        </div>
+        <div class="card mb-3">
+            <div class="card-header">
+                Search/Sort tasks
+            </div>
+            <div class="card-body">
+                <div class="search-form d-flex align-items-center">
+                    <div class="form-group d-flex mb-0">
+                        <label for="search" class="align-self-center mb-0">Search:</label>
+                        <input type="text" class="form-control ml-2" id="search">
+                        <div class="invalid-feedback ml-2 mt-0">
+                            Please, enter some text
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-warning btn-block sort mt-0 ml-3">Sort</button>
+                    <button type="button" class="btn btn-danger btn-block reset mt-0 ml-3">Reset filters</button>
+                </div>
             </div>
         </div>
         <div class="card mb-3">

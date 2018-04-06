@@ -32,7 +32,7 @@ const UI = ( function () {
     };
     
     const checkState = function () {
-        if ( !tasks.getTasks().length ) {
+        if ( !ul.children.length ) {
             emptyAlert.style.display = 'block';
         } else {
             emptyAlert.style.display = 'none';
@@ -43,11 +43,16 @@ const UI = ( function () {
         ul.innerHTML = '';
     };
 
+    const generateList = function ( array ) {
+        array.forEach( task => addTask( task ) );
+    };
+
     return {
         addTask,
         deleteTask,
         checkState,
         deleteAll,
-        checked
+        checked,
+        generateList
     };
 })();

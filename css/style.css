@@ -1,5 +1,5 @@
 /* alerts */
-.notification{
+.notification {
     position: fixed;
     top: 24px;
     right: 24px;
@@ -11,10 +11,10 @@
 }
 
 /* checkbox */
-input[type=checkbox]{
+input[type=checkbox] {
     display: none;
 }
-input[type=checkbox] + div::before{
+input[type=checkbox] + div::before {
     font-family: Font Awesome\ 5 Free;
     content: '\f0c8';
     font-size: 18px;
@@ -22,12 +22,22 @@ input[type=checkbox] + div::before{
     cursor: pointer;
     margin-right: 10px;
 }
-input[type=checkbox]:checked + div::before{
+input[type=checkbox]:checked + div::before {
     content: '\f14a';
 }
-
 input[type=checkbox] + div,
 .edit-item,
-.delete-item{
+.delete-item {
     cursor: pointer;
+}
+
+/* forms */
+.search-form .form-group {
+    width: 100%;
+}
+.search-form .invalid-feedback {
+    width: 30%;
+}
+.btn-block {
+    width: 50%;
 }

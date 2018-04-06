@@ -9,7 +9,7 @@ const Tasks = ( function () {
         return tasks;
     };
 
-    const setTasks = function ( tasksArray ) {
+    const setTasks = async function ( tasksArray ) {
         tasks = tasksArray;
 
         return tasks;
@@ -39,9 +39,13 @@ const Tasks = ( function () {
     const editTask = async function ( id, fieldName, newValue ) {
         await tasks.forEach( task => {
             if ( task.id === id ) {
-                task[ fieldName ]  = fieldName === 'taskBody' ? newValue : !task.completed;
+                task[ fieldName ] = fieldName === 'taskBody' ? newValue : !task.completed;
             }
         });
+    };
+
+    const search = async function ( substring ) {
+        return await tasks.filter( task => task.taskBody.toLowerCase().indexOf( substring.toLowerCase() ) !== -1 );
     };
 
     const createInstance = function () {
@@ -51,7 +55,8 @@ const Tasks = ( function () {
             addTask,
             deleteTask,
             deleteAll,
-            editTask
+            editTask,
+            search
         };
     };
 
